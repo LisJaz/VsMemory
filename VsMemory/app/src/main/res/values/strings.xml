@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Vs Memory</string>
+    <string name="server_name">Servidor</string>
+    <string name="client_name">Cliente</string>
+    <string name="server_game">Servidor juego</string>
+    <string name="client_game">Cliente juego</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_instrucciones">InstruccionesActivity</string>
+    <string name="title_activity_un_jugador">UnJugador</string>
+</resources>
