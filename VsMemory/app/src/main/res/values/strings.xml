@@ -8,4 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_instrucciones">InstruccionesActivity</string>
     <string name="title_activity_un_jugador">UnJugador</string>
+    <string name="instrucciones_un_jugador">UN JUGADOR
+        Para jugar en el modo individual debes presionar el  botón "UN JUGADOR"
+        que se encuentra en la pantalla principal, la partida comienza al presionar el botón "OK" de la ventana emergente.
+        Una vez iniciado el juego se empieza a mostrar la secuencia que se debe seguir y la barra indicadora de tiempo comienza
+        a disminuir, débes presionar los botones indicados ántes de que ésta termine. ¡Buena suerte!</string>
 </resources>
