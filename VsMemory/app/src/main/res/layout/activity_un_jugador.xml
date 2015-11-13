@@ -15,12 +15,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <!--<ProgressBar
+            <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:progress="100"
-                android:id="@+id/progressBar" />-->
+                android:id="@+id/progressBar" />
         </LinearLayout>
 
         <LinearLayout

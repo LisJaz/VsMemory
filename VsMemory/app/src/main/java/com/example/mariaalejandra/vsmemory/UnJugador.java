@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class UnJugador extends AppCompatActivity {
 
@@ -31,9 +35,10 @@ public class UnJugador extends AppCompatActivity {
     int presionado;
 
     private ProgressBar mProgress;
-    private int mProgressStatus = 100;
+    private int mProgressStatus;
     //AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(this).create();
 
+    //private Timer timer = new Timer();
 
 
 
@@ -47,7 +52,8 @@ public class UnJugador extends AppCompatActivity {
         botones[2] = (Button) findViewById(R.id.button3);
         botones[3] = (Button) findViewById(R.id.button4);
 
-        //mProgress = (ProgressBar) findViewById(R.id.progressBar);
+
+        mProgress = (ProgressBar) findViewById(R.id.progressBar);
 
        //startService(new Intent(getBaseContext(), MyService.class));
 
@@ -56,6 +62,7 @@ public class UnJugador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 presionado = 0;
+                iluminaBoton(0);
                 Log.d(TAG, "presiono" + 0);
                 presiona2.add(presionado);
             }
@@ -64,6 +71,7 @@ public class UnJugador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 presionado = 1;
+                iluminaBoton(1);
                 Log.d(TAG, "presiono" + 1);
                 presiona2.add(presionado);
             }
@@ -72,6 +80,7 @@ public class UnJugador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 presionado = 2;
+                iluminaBoton(2);
                 Log.d(TAG, "presiono" + 2);
                 presiona2.add(presionado);
             }
@@ -80,12 +89,12 @@ public class UnJugador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 presionado = 3;
+                iluminaBoton(3);
                 Log.d(TAG, "presiono" + 3);
                 presiona2.add(presionado);
+
             }
         });
- //alertDialog.show();
-        //comenzarJuego();
     }
 
     @Override
@@ -96,7 +105,6 @@ public class UnJugador extends AppCompatActivity {
         alertDialog.setMessage("presiona OK para iniciar el juego");
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-// aquí puedes añadir funciones
                 comenzarJuego();
             }
         });
@@ -113,12 +121,8 @@ public class UnJugador extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -133,15 +137,7 @@ public class UnJugador extends AppCompatActivity {
         int r = random.nextInt(4 - 0) + 0;
         secuencia.add(r);
         Log.d(TAG, "Random" + r);
-        iluminaBoton(r);
-
-        //int aux = 10;
-        //while(secuencia.size() != presiona2.size()){Log.d(TAG, "aun no");}
-
-        //actualizaBarra();
-        esperar(8000);
-        //Log.d(TAG, "ya son iguales" );
-       // confirmar();
+        iluminaBotones();
 
     }
 
@@ -161,15 +157,6 @@ public class UnJugador extends AppCompatActivity {
             public void run() {
                 // acciones que se ejecutan tras los milisegundos
                 desiluminaBoton(boton);
-            }
-        }, milisegundos);
-    }
-
-    public void esperarBarra(int milisegundos) {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // acciones que se ejecutan tras los milisegundos
             }
         }, milisegundos);
     }
@@ -238,24 +225,46 @@ public class UnJugador extends AppCompatActivity {
         }
     }
 
+    public void iluminaBotones(){
+        Log.d(TAG, "iluminabotones");
+        int oneMin= 1000 * secuencia.size()+600;
+
+        CountDownTimer cdt2 = new CountDownTimer(oneMin, 1000) {
+            int i = 0;
+            public void onTick(long millisUntilFinished) {
+                if (i < secuencia.size()){
+                    Log.d(TAG, "i:" +i);
+                    iluminaBoton(secuencia.get(i));
+                    i++;
+                }
+            }
+            public void onFinish() {
+                actualizaBarra();
+                esperar(1000 * secuencia.size()+600);
+            }
+        }.start();
+
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void iluminaBoton(int entero) {
+
         switch (entero) {
             case 0:
                 botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(1000, 0);
+                esperarIluminar(500, 0);
                 break;
             case 1:
                 botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(1000, 1);
+                esperarIluminar(500, 1);
                 break;
             case 2:
                 botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(1000, 2);
+                esperarIluminar(500, 2);
                 break;
             case 3:
                 botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(1000, 3);
+                esperarIluminar(500, 3);
                 break;
         }
     }
@@ -282,9 +291,57 @@ public class UnJugador extends AppCompatActivity {
         startActivity(i);
     }
 
-    /*private void actualizaBarra(){
+
+    private void actualizaBarra(){
         mProgressStatus = 100;
-        final Handler mHandler = new Handler();
+
+        int oneMin= 1000 * secuencia.size()+600;; // 1 minute in milli seconds
+
+        /** CountDownTimer starts with 1 minutes and every onTick is 1 second */
+        CountDownTimer cdt = new CountDownTimer(oneMin, 100) {
+
+            public void onTick(long millisUntilFinished) {
+                //mProgressStatus = (int) ((2000/ 60) * 100);
+                mProgressStatus = mProgressStatus-10;
+                mProgress.setProgress(mProgressStatus);
+            }
+
+            public void onFinish() {
+                // DO something when 1 minute is up
+            }
+        }.start();
+
+        /*long length_in_milliseconds = 5000;
+        long period_in_milliseconds = 1000;
+
+        CountDownTimer countDownTimer = new CountDownTimer(length_in_milliseconds, period_in_milliseconds) {
+            //private boolean warned = false;
+
+            @Override
+            public void onTick(long millisUntilFinished_) {
+                mProgressStatus = mProgressStatus-20;
+                mProgress.setProgress(mProgressStatus);
+            }
+
+            @Override
+            public void onFinish() {
+                // do whatever when the bar is full
+            }
+        }.start();*/
+        
+        /*final TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(task, 1000, velocidiad);*/
+        /*final Handler mHandler = new Handler();
         new Thread(new Runnable() {
             public void run() {
                 while (mProgressStatus >= 0) {
@@ -292,13 +349,14 @@ public class UnJugador extends AppCompatActivity {
                     mHandler.post(new Runnable() {
                         public void run() {
                             mProgressStatus = mProgressStatus -1;
-                            esperarBarra(800);
+                            esperarBarra(8000);
                             mProgress.setProgress(mProgressStatus);
                         }
                     });
                 }
 
             }
-        }).start();
-    }*/
+        }).start();*/
+
+    }
 }
