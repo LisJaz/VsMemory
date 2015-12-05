@@ -1,129 +1,97 @@
 package com.example.mariaalejandra.vsmemory;
 
+
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class UnJugador extends AppCompatActivity {
 
-    /*ArrayList<Integer> secuencia = new ArrayList();
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class Level3 extends Fragment {
+
+    ArrayList<Integer> secuencia = new ArrayList();
     ArrayList<Integer> presiona2 = new ArrayList();
 
 
-    Button botones[] = new Button[4];
+    Button botones[] = new Button[8];
     private final String TAG = "UnJugador";
     int contador = 1;
     int presionado;
 
     private ProgressBar mProgress;
-    private int mProgressStatus;*/
+    private int mProgressStatus;
 
-    //AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(this).create();
-
-    //private Timer timer = new Timer();
-
+    public Level3() {
+        // Required empty public constructor
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_un_jugador);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view  =  inflater.inflate(R.layout.fragment_level3, container, false);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new Level1())
-                    .commit();
+        botones[0] = (Button) view.findViewById(R.id.button1);
+        botones[1] = (Button) view.findViewById(R.id.button2);
+        botones[2] = (Button) view.findViewById(R.id.button3);
+        botones[3] = (Button) view.findViewById(R.id.button4);
+        botones[4] = (Button) view.findViewById(R.id.button5);
+        botones[5] = (Button) view.findViewById(R.id.button6);
+        botones[6] = (Button) view.findViewById(R.id.button7);
+        botones[7] = (Button) view.findViewById(R.id.button8);
+
+
+        mProgress = (ProgressBar) view.findViewById(R.id.progressBar);
+
+        //startService(new Intent(getBaseContext(), MyService.class));
+
+
+        for(int i = 0; i < 8; i++){
+            final int finalI = i;
+            botones[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presionado = finalI;
+                    iluminaBoton(finalI);
+                    Log.d(TAG, "presiono" + finalI);
+                    presiona2.add(presionado);
+                }
+            });
         }
-
-        /*botones[0] = (Button) findViewById(R.id.button1);
-        botones[1] = (Button) findViewById(R.id.button2);
-        botones[2] = (Button) findViewById(R.id.button3);
-        botones[3] = (Button) findViewById(R.id.button4);
-
-
-        mProgress = (ProgressBar) findViewById(R.id.progressBar);
-
-       //startService(new Intent(getBaseContext(), MyService.class));
-
-
-        botones[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 0;
-                iluminaBoton(0);
-                Log.d(TAG, "presiono" + 0);
-                presiona2.add(presionado);
-            }
-        });
-        botones[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 1;
-                iluminaBoton(1);
-                Log.d(TAG, "presiono" + 1);
-                presiona2.add(presionado);
-            }
-        });
-        botones[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 2;
-                iluminaBoton(2);
-                Log.d(TAG, "presiono" + 2);
-                presiona2.add(presionado);
-            }
-        });
-        botones[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 3;
-                iluminaBoton(3);
-                Log.d(TAG, "presiono" + 3);
-                presiona2.add(presionado);
-
-            }
-        });*/
+        return view;
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        /*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("INICAR");
-        alertDialog.setMessage("presiona OK para iniciar el juego");
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("MUY BIEN!!! NIVEL 3");
+        alertDialog.setMessage("presiona OK para continuar el juego");
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 comenzarJuego();
             }
         });
-        alertDialog.show();*/
-        //comenzarJuego();
-    }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_un_jugador, menu);
-        return true;
+        alertDialog.show();
     }
 
     @Override
@@ -141,7 +109,7 @@ public class UnJugador extends AppCompatActivity {
 
         Random random = new Random();
 
-        int r = random.nextInt(4 - 0) + 0;
+        int r = random.nextInt(8 - 0) + 0;
         secuencia.add(r);
         Log.d(TAG, "Random" + r);
         iluminaBotones();
@@ -171,7 +139,7 @@ public class UnJugador extends AppCompatActivity {
 
     public void confirmar(){
 
-        AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(this).create();
+        AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(getActivity()).create();
         alertDialogpPerdiste.setTitle("PERDISTE!!!");
         alertDialogpPerdiste.setMessage("");
         alertDialogpPerdiste.setButton("Volver", new DialogInterface.OnClickListener() {
@@ -225,7 +193,7 @@ public class UnJugador extends AppCompatActivity {
             comenzarJuego();
             presiona2.clear();
         }else{
-        Log.d(TAG, "PERDISTE!!! TE DEMORASTE MUCHO");
+            Log.d(TAG, "PERDISTE!!! TE DEMORASTE MUCHO");
             alertDialogpPerdiste.setTitle("PERDISTE!!!");
             alertDialogpPerdiste.setMessage("Te demoraste mucho!");
             alertDialogpPerdiste.show();
@@ -273,39 +241,67 @@ public class UnJugador extends AppCompatActivity {
                 botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
                 esperarIluminar(500, 3);
                 break;
+            case 4:
+                botones[4].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+                esperarIluminar(500, 4);
+                break;
+            case 5:
+                botones[5].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+                esperarIluminar(500, 5);
+                break;
+            case 6:
+                botones[6].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+                esperarIluminar(500, 6);
+                break;
+            case 7:
+                botones[7].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+                esperarIluminar(500, 7);
+                break;
         }
     }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void desiluminaBoton(int entero) {
         switch (entero) {
             case 0:
-                botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_default));
+                botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle));
                 break;
             case 1:
-                botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_default2));
+                botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle2));
                 break;
             case 2:
-                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_default4));
+                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
                 break;
             case 3:
-                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_default3));
+                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle4));
+                break;
+            case 4:
+                botones[4].setBackground(this.getResources().getDrawable(R.drawable.btn_circle5));
+                break;
+            case 5:
+                botones[5].setBackground(this.getResources().getDrawable(R.drawable.btn_circle6));
+                break;
+            case 6:
+                botones[6].setBackground(this.getResources().getDrawable(R.drawable.btn_circle7));
+                break;
+            case 7:
+                botones[7].setBackground(this.getResources().getDrawable(R.drawable.btn_circle8));
                 break;
         }
     }
 
     public void perdiste(){
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
-    }*/
+    }
 
 
-    /*private void actualizaBarra(){
+    private void actualizaBarra(){
         mProgressStatus = 100;
 
-        int oneMin= 1000 * secuencia.size()+600;; // 1 minute in milli seconds*/
+        int oneMin= 1000 * secuencia.size()+600;; // 1 minute in milli seconds
 
         /** CountDownTimer starts with 1 minutes and every onTick is 1 second */
-        /*CountDownTimer cdt = new CountDownTimer(oneMin, 100) {
+        CountDownTimer cdt = new CountDownTimer(oneMin, 100) {
 
             public void onTick(long millisUntilFinished) {
                 //mProgressStatus = (int) ((2000/ 60) * 100);
@@ -316,54 +312,8 @@ public class UnJugador extends AppCompatActivity {
             public void onFinish() {
                 // DO something when 1 minute is up
             }
-        }.start();*/
+        }.start();
 
-        /*long length_in_milliseconds = 5000;
-        long period_in_milliseconds = 1000;
+    }
 
-        CountDownTimer countDownTimer = new CountDownTimer(length_in_milliseconds, period_in_milliseconds) {
-            //private boolean warned = false;
-
-            @Override
-            public void onTick(long millisUntilFinished_) {
-                mProgressStatus = mProgressStatus-20;
-                mProgress.setProgress(mProgressStatus);
-            }
-
-            @Override
-            public void onFinish() {
-                // do whatever when the bar is full
-            }
-        }.start();*/
-        
-        /*final TimerTask task = new TimerTask(){
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        
-                    }
-                });
-            }
-        };
-        timer.scheduleAtFixedRate(task, 1000, velocidiad);*/
-        /*final Handler mHandler = new Handler();
-        new Thread(new Runnable() {
-            public void run() {
-                while (mProgressStatus >= 0) {
-                    // Update the progress bar
-                    mHandler.post(new Runnable() {
-                        public void run() {
-                            mProgressStatus = mProgressStatus -1;
-                            esperarBarra(8000);
-                            mProgress.setProgress(mProgressStatus);
-                        }
-                    });
-                }
-
-            }
-        }).start();*/
-
-    //}
 }

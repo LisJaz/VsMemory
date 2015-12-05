@@ -13,4 +13,7 @@
         que se encuentra en la pantalla principal, la partida comienza al presionar el botón "OK" de la ventana emergente.
         Una vez iniciado el juego se empieza a mostrar la secuencia que se debe seguir y la barra indicadora de tiempo comienza
         a disminuir, débes presionar los botones indicados ántes de que ésta termine. ¡Buena suerte!</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
