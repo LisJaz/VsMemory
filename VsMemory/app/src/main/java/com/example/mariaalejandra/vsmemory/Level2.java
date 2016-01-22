@@ -63,9 +63,6 @@ public class Level2 extends Fragment {
 
         mProgress = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        //startService(new Intent(getBaseContext(), MyService.class));
-
-
         for(int i = 0; i < 6; i++){
             final int finalI = i;
             botones[i].setOnClickListener(new View.OnClickListener() {
@@ -86,7 +83,8 @@ public class Level2 extends Fragment {
         super.onResume();
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("MUY BIEN!!! NIVEL 2");
-        alertDialog.setMessage("presiona OK para continuar el juego");
+        alertDialog.setIcon(R.drawable.ic_launcher);
+        alertDialog.setMessage("Presiona OK para continuar el juego.");
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 comenzarJuego();
@@ -107,7 +105,7 @@ public class Level2 extends Fragment {
     }
 
     public void comenzarJuego(){
-        if(secuencia.size() == 5){
+        if(secuencia.size() == 9){
             // Create new fragment and transaction
             Fragment newFragment = new Level3();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -155,6 +153,7 @@ public class Level2 extends Fragment {
 
         AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(getActivity()).create();
         alertDialogpPerdiste.setTitle("PERDISTE!!!");
+        alertDialogpPerdiste.setIcon(R.drawable.ic_launcher);
         alertDialogpPerdiste.setMessage("");
         alertDialogpPerdiste.setButton("Volver", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -165,7 +164,13 @@ public class Level2 extends Fragment {
         if(secuencia.size() == presiona2.size()){
             int i = 0;
             while (i < presiona2.size()) {
-                switch (presiona2.get(i)) {
+                Log.d(TAG, "" + i);
+                if (presiona2.get(i) != secuencia.get(i)) {
+                    Log.d(TAG, "PERDISTE!!!");
+                    alertDialogpPerdiste.show();
+                    return;
+                }
+                /*switch (presiona2.get(i)) {
                     case 0:
                         Log.d(TAG, "" + 0);
                         if (presiona2.get(i) != secuencia.get(i)) {
@@ -199,7 +204,7 @@ public class Level2 extends Fragment {
                         }
                         break;
 
-                }
+                }*/
                 i++;
 
             }
@@ -237,8 +242,10 @@ public class Level2 extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void iluminaBoton(int entero) {
+        botones[entero].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+        esperarIluminar(500, entero);
 
-        switch (entero) {
+        /*switch (entero) {
             case 0:
                 botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
                 esperarIluminar(500, 0);
@@ -263,7 +270,7 @@ public class Level2 extends Fragment {
                 botones[5].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
                 esperarIluminar(500, 5);
                 break;
-        }
+        }*/
     }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void desiluminaBoton(int entero) {
@@ -278,7 +285,7 @@ public class Level2 extends Fragment {
                 botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
                 break;
             case 3:
-                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle4));
+                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle7));
                 break;
             case 4:
                 botones[4].setBackground(this.getResources().getDrawable(R.drawable.btn_circle5));

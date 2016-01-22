@@ -7,13 +7,24 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_instrucciones">InstruccionesActivity</string>
-    <string name="title_activity_un_jugador">UnJugador</string>
-    <string name="instrucciones_un_jugador">UN JUGADOR
-        Para jugar en el modo individual debes presionar el  botón "UN JUGADOR"
-        que se encuentra en la pantalla principal, la partida comienza al presionar el botón "OK" de la ventana emergente.
+    <string name="title_activity_un_jugador">Un Jugador</string>
+    <string name="title_activity_multijugador">Multijugador</string>
+    <string name="instrucciones_un_jugador">Para jugar en el modo individual debes seleccionar la opción "MONOJUGADOR"
+        que se encuentra en el menú principal, la partida comienza al presionar el botón "OK" de la ventana emergente.
         Una vez iniciado el juego se empieza a mostrar la secuencia que se debe seguir y la barra indicadora de tiempo comienza
         a disminuir, débes presionar los botones indicados ántes de que ésta termine. ¡Buena suerte!</string>
+    <string name="instrucciones_multijugador">Para jugar con un amigo seleccionas la opción "MULTIJUGADOR" que se encuentra en
+        menú pricipal, luego deben decidir quién va a crear la partida, de este modo quien
+        selecciona "CREAR PARTIDA" verá una clave numérica en la pantalla que debe
+        compartir con el otro jugador,  para que éste la ingrese en el campo que se
+        muestra luego de seleccionar la opción "UNIRSE A UNA PARTIDA".
+        una vez iniciado el juego debes ir memorizando y repitiendo la secuencia que se va mostrando en pantalla, la cual
+        irá aumentando de tamaño a medida que aciertes. Ten cuidado de no equivocarte o tardar mucho tiempo en repetirla,
+        pues hacerlo podría robarte la victoria</string>
+    <string name="servidortext">Comparte el siguiente número clave con tu oponente para crear la partida, recuerda que
+    ambos deben estar conectados a la misma red.</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_multi_jugador">MultiJugador</string>
 </resources>

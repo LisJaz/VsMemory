@@ -20,15 +20,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void crearPartida(View view) {
-        Intent i = new Intent(this, ServerInitActivity.class );
+    public void multiJugador(View view) {
+        Intent i = new Intent(this, MultiJugador.class );
         startActivity(i);
     }
 
-    public void unirseAPartida(View view) {
-        Intent i = new Intent(this, ClientInitActivity.class );
-        startActivity(i);
-    }
     public void verInstrucciones(View view) {
         Intent i = new Intent(this, InstruccionesActivity.class );
         startActivity(i);

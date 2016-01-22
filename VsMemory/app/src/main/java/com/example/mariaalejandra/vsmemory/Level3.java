@@ -3,6 +3,7 @@ package com.example.mariaalejandra.vsmemory;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -62,9 +63,6 @@ public class Level3 extends Fragment {
 
         mProgress = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        //startService(new Intent(getBaseContext(), MyService.class));
-
-
         for(int i = 0; i < 8; i++){
             final int finalI = i;
             botones[i].setOnClickListener(new View.OnClickListener() {
@@ -107,6 +105,20 @@ public class Level3 extends Fragment {
 
     public void comenzarJuego(){
 
+        if(secuencia.size() == 15){
+            AlertDialog alertDialogpGanaste = new AlertDialog.Builder(getContext()).create();
+            alertDialogpGanaste.setTitle("FELICITACIONES GANASTE!!!");
+            alertDialogpGanaste.setIcon(R.drawable.ic_launcher);
+            alertDialogpGanaste.setMessage("");
+            alertDialogpGanaste.setButton("Volver", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(getActivity(), MainActivity.class);
+                    startActivity(i);
+
+                }
+            });
+            alertDialogpGanaste.show();
+        }
         Random random = new Random();
 
         int r = random.nextInt(8 - 0) + 0;
@@ -142,6 +154,7 @@ public class Level3 extends Fragment {
         AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(getActivity()).create();
         alertDialogpPerdiste.setTitle("PERDISTE!!!");
         alertDialogpPerdiste.setMessage("");
+        alertDialogpPerdiste.setIcon(R.drawable.ic_launcher);
         alertDialogpPerdiste.setButton("Volver", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 // aquí puedes añadir funciones
@@ -151,7 +164,13 @@ public class Level3 extends Fragment {
         if(secuencia.size() == presiona2.size()){
             int i = 0;
             while (i < presiona2.size()) {
-                switch (presiona2.get(i)) {
+                Log.d(TAG, "" + i);
+                if (presiona2.get(i) != secuencia.get(i)) {
+                    Log.d(TAG, "PERDISTE!!!");
+                    alertDialogpPerdiste.show();
+                    return;
+                }
+                /*switch (presiona2.get(i)) {
                     case 0:
                         Log.d(TAG, "" + 0);
                         if (presiona2.get(i) != secuencia.get(i)) {
@@ -185,7 +204,7 @@ public class Level3 extends Fragment {
                         }
                         break;
 
-                }
+                }*/
                 i++;
 
             }
@@ -223,8 +242,10 @@ public class Level3 extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void iluminaBoton(int entero) {
+        botones[entero].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+        esperarIluminar(500, entero);
 
-        switch (entero) {
+        /*switch (entero) {
             case 0:
                 botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
                 esperarIluminar(500, 0);
@@ -257,7 +278,7 @@ public class Level3 extends Fragment {
                 botones[7].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
                 esperarIluminar(500, 7);
                 break;
-        }
+        }*/
     }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void desiluminaBoton(int entero) {
@@ -269,10 +290,10 @@ public class Level3 extends Fragment {
                 botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle2));
                 break;
             case 2:
-                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
+                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle4));
                 break;
             case 3:
-                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle4));
+                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
                 break;
             case 4:
                 botones[4].setBackground(this.getResources().getDrawable(R.drawable.btn_circle5));

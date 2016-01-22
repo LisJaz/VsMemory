@@ -22,29 +22,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear partida"
+        android:text="MULTIJUGADOR"
         android:id="@+id/button"
-        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:background="@android:color/transparent"
         android:textSize="@dimen/abc_text_size_headline_material"
         style="@style/Base.TextAppearance.AppCompat.Button"
         android:textColor="#000000"
-        android:onClick="crearPartida" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unirse a una partida"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button3"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:background="@android:color/transparent"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:textColor="#000000"
-        android:onClick="unirseAPartida" />
+        android:onClick="multiJugador"
+        android:layout_above="@+id/button3" />
 
     <Button
         android:layout_width="wrap_content"
@@ -58,4 +45,13 @@
         android:textSize="@dimen/abc_text_size_headline_material"
         android:textColor="#000000"
         android:onClick="verInstrucciones" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/bsingle"
+        android:background="@drawable/ic_launcher"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

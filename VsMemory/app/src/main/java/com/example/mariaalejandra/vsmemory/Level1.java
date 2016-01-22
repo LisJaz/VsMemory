@@ -2,6 +2,7 @@ package com.example.mariaalejandra.vsmemory;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -59,8 +60,8 @@ public class Level1 extends Fragment {
 
 
         mProgress = (ProgressBar) view.findViewById(R.id.progressBar);
-
-        //startService(new Intent(getBaseContext(), MyService.class));
+        Activity actividad = getActivity();
+        Log.d(TAG, "actividad:" + actividad);
 
         for(int i = 0; i < 4; i++){
             final int finalI = i;
@@ -74,43 +75,7 @@ public class Level1 extends Fragment {
                 }
             });
         }
-        /*botones[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 0;
-                iluminaBoton(0);
-                Log.d(TAG, "presiono" + 0);
-                presiona2.add(presionado);
-            }
-        });
-        botones[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 1;
-                iluminaBoton(1);
-                Log.d(TAG, "presiono" + 1);
-                presiona2.add(presionado);
-            }
-        });
-        botones[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 2;
-                iluminaBoton(2);
-                Log.d(TAG, "presiono" + 2);
-                presiona2.add(presionado);
-            }
-        });
-        botones[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presionado = 3;
-                iluminaBoton(3);
-                Log.d(TAG, "presiono" + 3);
-                presiona2.add(presionado);
 
-            }
-        });*/
         return view;
     }
 
@@ -120,7 +85,8 @@ public class Level1 extends Fragment {
         super.onResume();
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle("INICAR");
-        alertDialog.setMessage("presiona OK para iniciar el juego");
+        alertDialog.setMessage("Presiona OK para iniciar el juego.");
+        alertDialog.setIcon(R.drawable.ic_launcher);
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 comenzarJuego();
@@ -142,7 +108,7 @@ public class Level1 extends Fragment {
 
     public void comenzarJuego(){
 
-        if(secuencia.size() == 3){
+        if(secuencia.size() == 6){
             // Create new fragment and transaction
             Fragment newFragment = new Level2();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -192,6 +158,7 @@ public class Level1 extends Fragment {
         AlertDialog alertDialogpPerdiste = new AlertDialog.Builder(getActivity()).create();
         alertDialogpPerdiste.setTitle("PERDISTE!!!");
         alertDialogpPerdiste.setMessage("");
+        alertDialogpPerdiste.setIcon(R.drawable.ic_launcher);
         alertDialogpPerdiste.setButton("Volver", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 // aquí puedes añadir funciones
@@ -201,40 +168,11 @@ public class Level1 extends Fragment {
         if(secuencia.size() == presiona2.size()){
             int i = 0;
             while (i < presiona2.size()) {
-                switch (presiona2.get(i)) {
-                    case 0:
-                        Log.d(TAG, "" + 0);
-                        if (presiona2.get(i) != secuencia.get(i)) {
-                            Log.d(TAG, "PERDISTE!!!");
-                            alertDialogpPerdiste.show();
-                            return;
-                        }
-                        break;
-                    case 1:
-                        Log.d(TAG, "" + 1);
-                        if (presiona2.get(i) != secuencia.get(i)) {
-                            Log.d(TAG, "PERDISTE!!!");
-                            alertDialogpPerdiste.show();
-                            return;
-                        }
-                        break;
-                    case 2:
-                        Log.d(TAG, "" + 2);
-                        if (presiona2.get(i) != secuencia.get(i)) {
-                            Log.d(TAG, "PERDISTE!!!");
-                            alertDialogpPerdiste.show();
-                            return;
-                        }
-                        break;
-                    case 3:
-                        Log.d(TAG, "" + 3);
-                        if (presiona2.get(i) != secuencia.get(i)) {
-                            Log.d(TAG, "PERDISTE!!!");
-                            alertDialogpPerdiste.show();
-                            return;
-                        }
-                        break;
-
+                Log.d(TAG, "" + i);
+                if (presiona2.get(i) != secuencia.get(i)) {
+                    Log.d(TAG, "PERDISTE!!!");
+                    alertDialogpPerdiste.show();
+                    return;
                 }
                 i++;
 
@@ -273,26 +211,10 @@ public class Level1 extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void iluminaBoton(int entero) {
-
-        switch (entero) {
-            case 0:
-                botones[0].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(500, 0);
-                break;
-            case 1:
-                botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(500, 1);
-                break;
-            case 2:
-                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(500, 2);
-                break;
-            case 3:
-                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
-                esperarIluminar(500, 3);
-                break;
-        }
+        botones[entero].setBackground(this.getResources().getDrawable(R.drawable.btn_circle_focused));
+        esperarIluminar(500,entero);
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void desiluminaBoton(int entero) {
         switch (entero) {
@@ -303,10 +225,10 @@ public class Level1 extends Fragment {
                 botones[1].setBackground(this.getResources().getDrawable(R.drawable.btn_circle2));
                 break;
             case 2:
-                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle4));
+                botones[2].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
                 break;
             case 3:
-                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle3));
+                botones[3].setBackground(this.getResources().getDrawable(R.drawable.btn_circle7));
                 break;
         }
     }
@@ -336,52 +258,6 @@ public class Level1 extends Fragment {
             }
         }.start();
 
-        /*long length_in_milliseconds = 5000;
-        long period_in_milliseconds = 1000;
-
-        CountDownTimer countDownTimer = new CountDownTimer(length_in_milliseconds, period_in_milliseconds) {
-            //private boolean warned = false;
-
-            @Override
-            public void onTick(long millisUntilFinished_) {
-                mProgressStatus = mProgressStatus-20;
-                mProgress.setProgress(mProgressStatus);
-            }
-
-            @Override
-            public void onFinish() {
-                // do whatever when the bar is full
-            }
-        }.start();*/
-
-        /*final TimerTask task = new TimerTask(){
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-            }
-        };
-        timer.scheduleAtFixedRate(task, 1000, velocidiad);*/
-        /*final Handler mHandler = new Handler();
-        new Thread(new Runnable() {
-            public void run() {
-                while (mProgressStatus >= 0) {
-                    // Update the progress bar
-                    mHandler.post(new Runnable() {
-                        public void run() {
-                            mProgressStatus = mProgressStatus -1;
-                            esperarBarra(8000);
-                            mProgress.setProgress(mProgressStatus);
-                        }
-                    });
-                }
-
-            }
-        }).start();*/
-
     }
+
 }
